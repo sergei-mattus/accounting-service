@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 z.B. für Autowiring, Bean Validation oder Integration von Service + Repository.
 Für einfache Unit-Tests reicht aber oft ein schlanker Setup ohne Spring-Kontext."
  */
-public class AccountingEntityTest {
+public class BookingEntityTest {
 
     private Validator validator;
 
@@ -33,7 +33,7 @@ public class AccountingEntityTest {
     @Test
     void shouldPassValidationWhenBookingIsValid() {
         // given
-        AccountingEntity accounting = new AccountingEntity(
+        BookingEntity accounting = new BookingEntity(
                 UUID.randomUUID(),
                 LocalDate.now(),
                 "Valid booking",
@@ -43,7 +43,7 @@ public class AccountingEntityTest {
         );
 
         // when
-        Set<ConstraintViolation<AccountingEntity>> violations = validator.validate(accounting);
+        Set<ConstraintViolation<BookingEntity>> violations = validator.validate(accounting);
 
         // then
         assertTrue(violations.isEmpty());
@@ -53,7 +53,7 @@ public class AccountingEntityTest {
     @Test
     void shouldFailValidationWhenBookingIsInvalid() {
         // given
-        AccountingEntity accounting = new AccountingEntity(
+        BookingEntity accounting = new BookingEntity(
                 null,
                 null,
                 "",
@@ -63,7 +63,7 @@ public class AccountingEntityTest {
         );
 
         // when
-        Set<ConstraintViolation<AccountingEntity>> violations = validator.validate(accounting);
+        Set<ConstraintViolation<BookingEntity>> violations = validator.validate(accounting);
         violations.forEach(v ->
                 System.out.println(v.getPropertyPath() + " - " + v.getMessage())
         );

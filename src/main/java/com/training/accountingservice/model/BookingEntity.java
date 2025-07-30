@@ -6,13 +6,14 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
 /*
-„Im Alltag nutze ich oft Lomboks @Builder, gerade für Objekte mit vielen Feldern. H
+„Im Alltag nutze ich oft Lomboks @Builder, gerade für Objekte mit vielen Feldern.
 Hier im Interview schreibe ich es explizit aus – um die Logik klar zu zeigen.“
  */
 
@@ -23,9 +24,10 @@ Wenn aber mehr Kontext nötig ist – z.B. Abfragen aus der DB oder Feature-Togg
 dann würde ich die Validierung als Methode im Service schreiben. Ich achte immer darauf,
 was fachlich Sinn ergibt und was später wartbar bleibt.“
  */
+@Getter
 @Entity
 @AccountMismatch
-public class AccountingEntity {
+public class BookingEntity {
 
     @Id
     @NotNull
@@ -47,9 +49,8 @@ public class AccountingEntity {
     @NotBlank
     private String contraAccount;
 
-
-    public AccountingEntity(UUID id, LocalDate bookingDate, String description,
-                            BigDecimal amount, String account, String contraAccount) {
+    public BookingEntity(UUID id, LocalDate bookingDate, String description,
+                         BigDecimal amount, String account, String contraAccount) {
         this.id = id;
         this.bookingDate = bookingDate;
         this.description = description;
@@ -58,27 +59,8 @@ public class AccountingEntity {
         this.contraAccount = contraAccount;
     }
 
-    public UUID getId() {
-        return id;
+    protected BookingEntity() {
+        // JPA
     }
 
-    public LocalDate getBookingDate() {
-        return bookingDate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public String getContraAccount() {
-        return contraAccount;
-    }
 }

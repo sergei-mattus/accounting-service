@@ -10,7 +10,13 @@ import java.lang.annotation.*;
 @Target({ ElementType.TYPE }) // Definiert, wo Annotation verwendet werden darf (z.B. auf Klassen)
 @Retention(RetentionPolicy.RUNTIME) // Macht Annotation zur Laufzeit sichtbar – notwendig für Bean Validation
 public @interface AccountMismatch {
-    String message() default "Account and contraAccount must not be the same"; // 	Die Fehlermeldung für die Annotation
-    Class<?>[] groups() default {}; // Erlaubt Validierungsgruppen (z.B. Create vs. Update)
-    Class<? extends Payload>[] payload() default {}; // Erweiterbar für Custom-Metadaten
+
+    // 	Die Fehlermeldung für die Annotation
+    String message() default "Account and contraAccount must not be the same";
+
+    // Erlaubt Validierungsgruppen (z.B. Create vs. Update) - default, wenn man keine braucht
+    Class<?>[] groups() default {};
+
+    // Erweiterbar für Custom-Metadaten
+    Class<? extends Payload>[] payload() default {};
 }
